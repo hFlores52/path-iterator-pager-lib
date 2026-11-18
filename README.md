@@ -41,3 +41,10 @@ produces a final shorter page.  A page size of zero or a negative number
 raises `ValueError` from the constructor rather than producing an iterator that
 silently yields nothing.  A missing directory raises `FileNotFoundError` when
 iteration begins, matching `os.scandir`.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
